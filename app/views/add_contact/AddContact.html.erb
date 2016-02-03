@@ -1,0 +1,14 @@
+<table border="1" style="width:100%">
+	<tr>
+		<% DATAFORMFIELD_FIELDS.each do |field| %>
+		<th><%= field %></th>
+		<% end %>
+	</tr>
+<% @custom_fields.each do |cf| %>
+	<tr>
+		<% DATAFORMFIELD_FIELDS.each do |field| %>
+		<td><%= cf["#{field}"] %></td>
+		<% end %>
+	</tr>
+<% end %>
+</table>
