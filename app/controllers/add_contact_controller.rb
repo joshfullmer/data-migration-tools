@@ -1,4 +1,5 @@
 require "fields_arrays.rb"
+require "base64"
 
 class AddContactController < ApplicationController
 
@@ -19,6 +20,12 @@ class AddContactController < ApplicationController
 			break if contact_page.length < 1000
 			page_index += 1
 		end
+
+		file_contents = File.read('C:\Users\josh.fullmer\Downloads\notes.csv')
+
+		encoded_contents = Base64.encode64(file_contents)
+
+		Infusionsoft.file_upload(4,"notes.csv",encoded_contents)
 
 	end
 

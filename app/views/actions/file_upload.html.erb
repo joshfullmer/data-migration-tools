@@ -1,0 +1,9 @@
+<%= @csv %>
+
+<% @csv.each do |row| %>
+<p>Uploaded "<%= row[:filename] %>" to Contact ID: <%= row[:id] %></p>
+<% end %>
+
+<%= form_tag({action: :file_upload}, multipart: true) do %>
+  <%= file_field_tag 'attachments' %>
+<% end %>
