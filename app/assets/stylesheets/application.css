@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+.form-container {
+	text-align:center;
+	border: 1px solid black;
+	width: 400px;
+	margin: 0 auto;
+	padding: 15px;
+}
+
+input#appname {
+	width: 50px;
+}
+
+input#apikey {
+	width: 100%;
+}
+
+label {
+	text-align: left;
+}

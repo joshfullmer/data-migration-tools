@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   get '/addcontact' => 'add_contact#AddContact'
-  get '/actions/file_upload' => 'actions#file_upload'
-  get '/upload' => 'actions#upload'
+  post '/actions/file_upload' => 'actions#file_upload'
+  get '/actions/attachments' => 'actions#attachments'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

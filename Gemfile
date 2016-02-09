@@ -45,3 +45,5 @@ gem 'coffee-script-source', '1.8.0'
 gem 'json'
 
 gem 'smarter_csv'
+
+gem 'rubyzip'

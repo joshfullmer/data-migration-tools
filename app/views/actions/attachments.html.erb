@@ -1,0 +1,26 @@
+<div class="form-container">
+<%= form_tag({action: :file_upload}, multipart: true) do %>
+	<%= label_tag(:appname, "Infusionsoft Application Name: ") %>
+	</br>
+	<%= text_field_tag :appname %>
+	.infusionsoft.com
+	</br>
+	</br>
+	<%= label_tag(:apikey, "Infusionsoft API key: ") %>
+	</br>
+	<%= text_field_tag :apikey %>
+	</br>
+	</br>
+	<%= label_tag(:attachments, "Select Attachment Relationship file (.csv only):") %>
+	</br>
+	<%= file_field_tag :attachments %>
+	</br>
+	</br>
+	<%= label_tag(:files, "Select File Directory containing Attachments (.zip only):") %>
+	</br>
+	<%= file_field_tag :files %>
+	</br>
+	</br>
+	<%= submit_tag("Upload") %>
+<% end %>
+</div>
