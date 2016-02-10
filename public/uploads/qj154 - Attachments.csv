@@ -1,4 +1,4 @@
-id,filename
-4,content v2.xml
-306,sexy data.gif
-182,temptest.csv
+id,filename,filepath
+4,content v2.xml,content v2.xml
+306,sexy data.gif,sexy data.gif
+182,temptest.csv,temptest.csv

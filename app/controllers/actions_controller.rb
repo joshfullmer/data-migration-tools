@@ -1,11 +1,42 @@
 require 'smarter_csv'
 require 'zip'
 require 'fileutils'
+require 'fields_arrays.rb'
 
 class ActionsController < ApplicationController
 
 	def attachments
 		#Captures Relationship and Attachments files
+	end
+
+	def all_records
+		@tables = []
+		FIELDS.each do |key,value|
+			table = []
+			table << key
+			table << key
+			@tables << table
+		end
+	end
+
+	def get_records
+		appname = params[:appname]
+		@tablename = params[:tablename]
+		#Initializes Infusionsoft instance
+		Infusionsoft.configure do |config|
+			config.api_url = "#{appname}.infusionsoft.com"
+			config.api_key = params[:apikey]
+		end
+
+		page_index = 0
+		@data = []
+		while true do
+			data_page = Infusionsoft.data_query(@tablename,1000,page_index,{},FIELDS["#{@tablename}"])
+			@data += data_page
+			break if data_page.length < 1000
+			page_index += 1
+		end
+
 	end
 
 	def file_upload
@@ -41,7 +72,7 @@ class ActionsController < ApplicationController
 		#Extract uploaded ZIP into created folder
 		Zip::File.open(Rails.root.join("public", "uploads", @uploaded_directory.original_filename).to_s, 'wb') do |zipfile|
 			zipfile.each do |file|
-				zipfile.extract(file,"#{filepath}/#{file.name}")
+				zipfile.extract(file,"#{filepath}/#{file.name}") {true}
 			end
 		end
 

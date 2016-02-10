@@ -1,0 +1,15 @@
+<h1><%= @tablename %></h1>
+<table border="1" style="width:100%">
+	<tr>
+		<% FIELDS["#{@tablename}"].each do |field| %>
+		<th><%= field %></th>
+		<% end %>
+	</tr>
+<% @data.each do |row| %>
+	<tr>
+		<% FIELDS["#{@tablename}"].each do |field| %>
+		<td><%= row["#{field}"] %></td>
+		<% end %>
+	</tr>
+<% end %>
+</table>
