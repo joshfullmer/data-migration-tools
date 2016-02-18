@@ -10,6 +10,9 @@ class ActionsController < ApplicationController
 	end
 
 	def all_records
+
+		#Generate list of all Infusionsoft tables to create dropdown for user input
+		#Key is added twice, once for the value of the option, twice for the name of the selection (for ease of use in Rails)
 		@tables = []
 		FIELDS.each do |key,value|
 			table = []
@@ -17,25 +20,18 @@ class ActionsController < ApplicationController
 			table << key
 			@tables << table
 		end
+
 	end
 
 	def get_records
-		appname = params[:appname]
+		#Store the user input table name in @tablename for display on the view
 		@tablename = params[:tablename]
-		#Initializes Infusionsoft instance
-		Infusionsoft.configure do |config|
-			config.api_url = "#{appname}.infusionsoft.com"
-			config.api_key = params[:apikey]
-		end
 
-		page_index = 0
-		@data = []
-		while true do
-			data_page = Infusionsoft.data_query(@tablename,1000,page_index,{},FIELDS["#{@tablename}"])
-			@data += data_page
-			break if data_page.length < 1000
-			page_index += 1
-		end
+		#Initializes Infusionsoft instance
+		initialize_infusionsoft(params[:appname], params[:apikey])
+
+		#Stores all of the data in array called @data for display on the view
+		@data = get_table(params[:tablename])
 
 	end
 
@@ -43,11 +39,9 @@ class ActionsController < ApplicationController
 
 		appname = params[:appname]
 		filepath = "#{Rails.root}/public/uploads/#{appname}"
+
 		#Initializes Infusionsoft instance
-		Infusionsoft.configure do |config|
-			config.api_url = "#{appname}.infusionsoft.com"
-			config.api_key = params[:apikey]
-		end
+		initialize_infusionsoft(appname,params[:apikey])
 
 		#Saves relationship file to local memory
 		@uploaded_file = params[:attachments]
@@ -84,4 +78,5 @@ class ActionsController < ApplicationController
 		end
 
 	end
+
 end
