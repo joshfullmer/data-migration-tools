@@ -1,0 +1,34 @@
+<div class="form-container">
+<h2>Infusionsoft Application Data Transfer</h2>
+<%= form_tag({action: :transfer}, multipart: true) do %>
+	<%= label_tag(:src_appname, "Source Infusionsoft Application Name: ") %>
+	<br />
+	<%= text_field_tag :src_appname %>
+	.infusionsoft.com
+	<br />
+	<br />
+	<%= label_tag(:src_apikey, "Source App Infusionsoft API key: ") %>
+	<br />
+	<%= text_field_tag :src_apikey %>
+	<br />
+	<br />
+	<%= label_tag(:dest_appname, "Destination Infusionsoft Application Name: ") %>
+	<br />
+	<%= text_field_tag :dest_appname %>
+	.infusionsoft.com
+	<br />
+	<br />
+	<%= label_tag(:dest_apikey, "Destination App Infusionsoft API key: ") %>
+	<br />
+	<%= text_field_tag :dest_apikey %>
+	<br />
+	<br />
+	<div>
+		<%= label_tag(:contacts, "Contacts") %>
+		<%= check_box 'contacts', 'checkbox', {}, 'true', 'false' %>
+	</div>
+	<br />
+	<br />
+	<%= submit_tag("Transfer Data") %>
+<% end %>
+</div>

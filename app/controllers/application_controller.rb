@@ -1,4 +1,5 @@
 require 'infusionsoft_actions.rb'
+require 'fields_arrays.rb'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.

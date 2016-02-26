@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   get '/actions/attachments' => 'actions#attachments'
   get '/actions/records' => 'actions#all_records'
   post '/actions/get_records' => 'actions#get_records'
+  get '/app2app/start' => 'app2app#start'
+  post '/app2app/transfer' => 'app2app#transfer'
+  get '/actions/attachments_no_zip' => 'actions#attachments_no_zip'
+  post '/actions/file_upload_no_zip' => 'actions#file_upload_no_zip'
+  get '/actions/appsettings' => 'actions#appsettings'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

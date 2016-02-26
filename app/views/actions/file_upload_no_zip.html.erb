@@ -1,0 +1,12 @@
+<table>
+	<tr>
+		<th>Contact ID</th>
+		<th>Filename</th>
+	</tr>
+	<% @attachments.each do |row| %>
+	<tr>
+		<td><%= row[:id] %></td>
+		<td><%= row[:filename] %></td>
+	</tr>
+	<% end %>
+</table>

@@ -47,3 +47,5 @@ gem 'json'
 gem 'smarter_csv'
 
 gem 'rubyzip'
+
+gem 'pdf-reader'

@@ -1,0 +1,25 @@
+<%= "Contacts: #{params[:contacts][:checkbox]}" %>
+<h1>Person Types</h1>
+<% @types.each do |type| %>
+	<p><%= type %></p>
+<% end %>
+<br />
+<h1>Titles</h1>
+<% @titles.each do |title| %>
+	<p><%= title %></p>
+<% end %>
+<br />
+<h1>Suffixes</h1>
+<% @suffixes.each do |suffix| %>
+	<p><%= suffix %></p>
+<% end %>
+<br />
+<h1>Phone Types</h1>
+<% @phonetypes.each do |phonetype| %>
+	<p><%= phonetype %></p>
+<% end %>
+<br />
+<h1>Fax Types</h1>
+<% @faxtypes.each do |faxtype| %>
+	<p><%= faxtype %></p>
+<% end %>

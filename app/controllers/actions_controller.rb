@@ -2,11 +2,16 @@ require 'smarter_csv'
 require 'zip'
 require 'fileutils'
 require 'fields_arrays.rb'
+require 'base64'
 
 class ActionsController < ApplicationController
 
 	def attachments
 		#Captures Relationship and Attachments files
+	end
+
+	def attachments_no_zip
+		#Captures relationship CSV and Attachment folder name
 	end
 
 	def all_records
@@ -72,11 +77,40 @@ class ActionsController < ApplicationController
 
 		#Attach all items in zipfile to assigned contacts based on the uploaded CSV
 		@attachments.each do |row|
-			file_contents = File.read("#{filepath}/#{zipfilename}/#{row[:filepath]}")
-			encoded_contents = Base64.encode64(file_contents)
-			Infusionsoft.file_upload(row[:id],"#{row[:filename]}",encoded_contents)
+			Infusionsoft.file_upload(row[:id],"#{row[:filename]}",Base64.encode64(File.open("#{filepath}/#{zipfilename}/#{row[:filepath]}", "rb").read))
 		end
 
+	end
+
+	def file_upload_no_zip
+
+		#set variables
+		appname = params[:appname]
+		filepath = "#{Rails.root}/public/uploads/#{appname}"
+
+		#Initializes Infusionsoft instance
+		initialize_infusionsoft(appname,params[:apikey])
+
+		#Saves relationship file to local memory
+		@uploaded_file = params[:attachments]
+		@filename = "#{appname} - " + @uploaded_file.original_filename
+		File.open(Rails.root.join('public', 'uploads', @filename), 'wb') do |file|
+			file.write(@uploaded_file.read)
+		end
+
+		#Stores uploaded CSV as an array of hashes
+		@attachments = SmarterCSV.process(Rails.root.join("public", "uploads", @filename).to_s)
+
+		#Attach all items in zipfile to assigned contacts based on the uploaded CSV
+		@attachments.each do |row|
+			Infusionsoft.file_upload(row[:id],"#{row[:filename]}",Base64.encode64(File.open("#{filepath}/#{params[:files]}/#{row[:filepath]}", "rb").read))
+		end
+
+	end
+
+	def appsettings
+		@appsettings = Infusionsoft.data_get_app_setting('Contact','optiontypes')
+		puts @appsettings
 	end
 
 end

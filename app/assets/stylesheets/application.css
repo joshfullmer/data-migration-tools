@@ -21,11 +21,11 @@
 	padding: 15px;
 }
 
-input#appname {
+input#appname, #src_appname, #dest_appname {
 	width: 50px;
 }
 
-input#apikey {
+input#apikey, #src_apikey, #dest_apikey {
 	width: 100%;
 }
 
