@@ -21,12 +21,12 @@ FIELDS = {
 	'Expense' => ['ContactId','DateIncurred','ExpenseAmt','ExpenseType','Id','TypeId'],
 	'FileBox' => ['ContactId','Extension','FileName','FileSize','Id','Public'],
 	'GroupAssign' => ['Admin','GroupId','Id','UserId'],
-	'Invoice' => ['AffiliateId','ContactId','CreditStatus','DateCreated','Description','Id','InvoiceTotal','InvoiceType','JobId','LeadAffiliateId','PayPlanStatus','PayStatus','ProductSold','PromoCode','RefundStatus','Synced','TotalDue','TotalPaid'],
-	'InvoiceItem' => ['CommissionStatus','DateCreated','Description','Discount','Id','InvoiceAmt','InvoiceId','OrderItemId'],
-	'InvoicePayment' => ['Amt','Id','InvoiceId','PayDate','PayStatus','PaymentId','SkipCommission'],
+	'Invoice' => ['AffiliateId','ContactId','CreditStatus','DateCreated','Description','Id','InvoiceTotal','InvoiceType','JobId','LastUpdated','LeadAffiliateId','PayPlanStatus','PayStatus','ProductSold','PromoCode','RefundStatus','Synced','TotalDue','TotalPaid'],
+	'InvoiceItem' => ['CommissionStatus','DateCreated','Description','Discount','Id','InvoiceAmt','InvoiceId','LastUpdated','OrderItemId'],
+	'InvoicePayment' => ['Amt','Id','InvoiceId','LastUpdated','PayDate','PayStatus','PaymentId','SkipCommission'],
 	'Job' => ['ContactId','DateCreated','DueDate','Id','JobNotes','JobRecurringId','JobStatus','JobTitle','OrderStatus','OrderType','ProductId','ShipCity','ShipCompany','ShipCountry','ShipFirstName','ShipLastName','ShipMiddleName','ShipPhone','ShipState','ShipStreet1','ShipStreet2','ShipZip','StartDate'],
 	'JobRecurringInstance' => ['AutoCharge','DateCreated','Description','EndDate','Id','InvoiceItemId','RecurringId','StartDate','Status'],
-	'Lead' => ['AffiliateId','ContactID','CreatedBy','DateCreated','EstimatedCloseDate','Id','LastUpdated','LastUpdatedBy','Leadsource','NextActionDate','NextActionNotes','Objection','OpportunityNotes','OpportunityTitle','ProjectedRevenueHigh','ProjectedRevenueLow','StageID','StatusID','UserID'],
+	'Lead' => ['AffiliateId','ContactID','CreatedBy','DateCreated','DateInStage','EstimatedCloseDate','Id','IncludeInForecast','LastUpdated','LastUpdatedBy','Leadsource','MonthlyRevenue','NextActionDate','NextActionNotes','Objection','OpportunityNotes','OpportunityTitle','OrderRevenue','ProjectedRevenueHigh','ProjectedRevenueLow','StageID','StatusID','UserID'],
 	'LeadSource' => ['CostPerLead','Description','EndDate','Id','LeadSourceCategoryId','Medium','Message','Name','StartDate','Status','Vendor'],
 	'LeadSourceCategory' => ['Description','Id','Name'],
 	'LeadSourceExpense' => ['Amount','DateIncurred','Id','LeadSourceId','LeadSourceRecurringExpenseId','Notes','Title'],
@@ -39,18 +39,18 @@ FIELDS = {
 	'Product' =>['BottomHTML','CityTaxable','CountryTaxable','Description','HideInStore','Id','InventoryLimit','InventoryNotifiee','IsPackage','LargeImage','NeedsDigitalDelivery','ProductName','ProductPrice','Shippable','ShippingTime','ShortDescription','Sku','StateTaxable','Status','Taxable','TopHTML','Weight'],
 	'ProductCategory' => ['CategoryDisplayName','CategoryImage','CategoryOrder','Id','ParentId'],
 	'ProductCategoryAssign' => ['Id','ProductCategoryId','ProductId'],
-	'ProductInterest' => ['DiscountPercent','Id','ObjType','ObjectId','ProductId','ProductType','Qty'],
+	'ProductInterest' => ['DiscountPercent','Id','ObjType','ObjectId','ProductId','ProductType','Qty','SubscriptionPlanId'],
 	'ProductInterestBundle' => ['BundleName','Description','Id'],
 	'ProductOptValue' =>['Id','IsDefault','Label','Name','OptionIndex','PriceAdjustment','ProductOptionId','Sku'],
 	'ProductOption' => ['AllowSpaces','CanContain','CanEndWith','CanStartWith','Id','IsRequired','Label','MaxChars','MinChars','Name','OptionType','Order','ProductId','TextMessage'],
 	'RecurringOrder' => ['AffiliateId','AutoCharge','BillingAmt','BillingCycle','CC1','CC2','ContactId','EndDate','Frequency','Id','LastBillDate','LeadAffiliateId','MaxRetry','MerchantAccountId','NextBillDate','NumDaysBetweenRetry','OriginatingOrderId','PaidThruDate','ProductId','ProgramId','PromoCode','Qty','ReasonStopped','ShippingOptionId','StartDate','Status','SubscriptionPlanId'],
-	'RecurringOrderWithContact' => ['AffiliateId','AutoCharge','BillingAmt','BillingCycle','CC1','CC2','City','ContactId','ContactId','Country','Email','EmailAddress2','EmailAddress3','EndDate','FirstName','Frequency','HTMLSignature','LastBillDate','LastName','LeadAffiliateId','MaxRetry','MerchantAccountId','MiddleName','NextBillDate','Nickname','NumDaysBetweenRetry','PaidThruDate','Phone1','Phone1Ext','Phone1Type','Phone2','Phone2Ext','Phone2Type','PostalCode','ProductId','ProgramId','PromoCode','Qty','ReasonStopped','RecurringOrderId','ShippingOptionId','Signature','SpouseName','StartDate','State','Status','StreetAddress1','StreetAddress2','SubscriptionPlanId','Suffix','Title','ZipFour1'],
+	'RecurringOrderWithContact' => ['AffiliateId','AutoCharge','BillingAmt','BillingCycle','CC1','CC2','City','ContactId','ContactId','Country','Email','EmailAddress2','EmailAddress3','EndDate','FirstName','Frequency','Id','LastBillDate','LastName','LeadAffiliateId','MaxRetry','MerchantAccountId','MiddleName','NextBillDate','Nickname','NumDaysBetweenRetry','OriginatingOrderId','PaidThruDate','PaymentGatewayId','Phone1','Phone1Ext','Phone1Type','Phone2','Phone2Ext','Phone2Type','PostalCode','ProductId','ProgramId','PromoCode','Qty','ReasonStopped','RecurringOrderId','ShippingOptionId','SpouseName','StartDate','State','Status','StreetAddress1','StreetAddress2','SubscriptionPlanId','Suffix','Title','ZipFour1'],
 	'Referral' => ['AffiliateId','ContactId','DateExpires','DateSet','IPAddress','Id','Info','Source','Type'],
 	'SavedFilter' =>['FilterName','Id','ReportStoredName','UserId'],
 	'Stage' => ['Id','StageName','StageOrder','TargetNumDays'],
 	'StageMove' => ['CreatedBy','DateCreated','Id','MoveDate','MoveFromStage','MoveToStage','OpportunityId','PrevStageMoveDate','UserId'],
 	'Status' => ['Id','StatusName','StatusOrder','TargetNumDays'],
-	'SubscriptionPlan' => ['Active','Cycle','Frequency','Id','PlanPrice','PreAuthorizeAmount','ProductId','Prorate'],
+	'SubscriptionPlan' => ['Active','Cycle','Frequency','Id','NumberOfCycles','PlanPrice','PreAuthorizeAmount','ProductId','Prorate'],
 	'Template' => ['Categories','Id','PieceTitle','PieceType'],
 	'Ticket' => ['CloseDate','ContactId','CreatedBy','DateCreated','DateInStage','DevId','FolowUpDate','HasCustomerCalled','Id','IssueId','LastUpdated','LastUpdatedBy','Ordering','Priority','Stage','Summary','TargetCompletionDate','TicketApplication','TicketCategory','TicketTitle','TicketTypeId','TimeSpent','UserId'],
 	'TicketStage' => ['Id','StageName'],
@@ -60,7 +60,7 @@ FIELDS = {
 }
 
 
-DATATYPE = {
+DATATYPE_IDS = {
 	1 => 'Phone Number',
 	2 => 'Social Security Number',
 	3 => 'Currency',
@@ -86,6 +86,43 @@ DATATYPE = {
 	23 => 'Drilldown'
 }
 
+#key is name
+#value is required datatype for DataService.addCustomField
+
+DATATYPES = {
+	'Currency' => {'dataType' => 'Currency', 'id' => 3, 'hasValues' => 'no'},
+	'Date' => {'dataType' => 'Date', 'id' => 13, 'hasValues' => 'no'},
+	'Date/Time' => {'dataType' => 'DateTime', 'id' => 14, 'hasValues' => 'no'},
+	'Day of Week' => {'dataType' => 'DayOfWeek', 'id' => 9, 'hasValues' => 'no'},
+	'Drilldown' => {'dataType' => 'Drilldown', 'id' => 23, 'hasValues' => 'yes'},
+	'Email' => {'dataType' => 'Email', 'id' => 19, 'hasValues' => 'no'},
+	'Month' => {'dataType' => 'Month', 'id' => 8, 'hasValues' => 'no'},
+	'List Box' => {'dataType' => 'MultiSelect', 'id' => 17, 'hasValues' => 'yes'},
+	'Name' => {'dataType' => 'Name', 'id' => 10, 'hasValues' => 'no'},
+	'Whole Number' => {'dataType' => 'Number', 'id' => 12, 'hasValues' => 'no'},
+	'Decimal Number' => {'dataType' => 'NumberDecimal', 'id' => 11, 'hasValues' => 'no'},
+	'Percent' => {'dataType' => 'Percent', 'id' => 4, 'hasValues' => 'no'},
+	'Phone Number' => {'dataType' => 'Phone', 'id' => 1, 'hasValues' => 'no'},
+	'Radio' => {'dataType' => 'Radio', 'id' => 20, 'hasValues' => 'yes'},
+	'Dropdown' => {'dataType' => 'Select', 'id' => 21, 'hasValues' => 'yes'},
+	'Social Security Number' => {'dataType' => 'SSN', 'id' => 2, 'hasValues' => 'no'},
+	'State' => {'dataType' => 'State', 'id' => 5, 'hasValues' => 'no'},
+	'Text' => {'dataType' => 'Text', 'id' => 15, 'hasValues' => 'no'},
+	'Text Area' => {'dataType' => 'TextArea', 'id' => 16, 'hasValues' => 'no'},
+	'User' => {'dataType' => 'User', 'id' => 22, 'hasValues' => 'yes'},
+	'Website' => {'dataType' => 'Website', 'id' => 18, 'hasValues' => 'no'},
+	'Year' => {'dataType' => 'Year', 'id' => 7, 'hasValues' => 'no'},
+	'Yes/No' => {'dataType' => 'YesNo', 'id' => 6, 'hasValues' => 'no'}
+}
+
+CUSTOM_FIELD_FORM_ID = {
+	-1 => 'Contact',
+	-3 => 'Referral Partner',
+	-4 => 'Opportunity',
+	-5 => 'Task/Note/Apt',
+	-6 => 'Company',
+	-9 => 'Order'
+}
 
 QJ154_APIKEY='1979978dc08730f121747d50003c8513'
 MJ303_APIKEY='682f2c050b76f35d8e8c48db5b98e68d'

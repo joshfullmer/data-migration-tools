@@ -10,6 +10,15 @@ Rails.application.routes.draw do
   get '/actions/attachments_no_zip' => 'actions#attachments_no_zip'
   post '/actions/file_upload_no_zip' => 'actions#file_upload_no_zip'
   get '/actions/appsettings' => 'actions#appsettings'
+  get '/actions/api_test' => 'actions#api_test'
+  get '/actions/delete_actions' => 'actions#delete_actions'
+
+  get '/actions/basecamp' => 'actions#basecamp'
+  get '/actions/closeio' => 'actions#closeio'
+  get '/actions/closeio_json2csv' => 'actions#closeio_json2csv'
+
+  get '/json2csv/start' => 'json2csv#start'
+  post '/json2csv/convert' => 'json2csv#convert'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

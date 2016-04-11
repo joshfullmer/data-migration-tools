@@ -1,0 +1,10 @@
+<div class="form-container">
+<%= form_tag({action: :convert}, multipart: true) do %>
+	<%= label_tag(:json, "Select JSON file (.json only):") %>
+	</br>
+	<%= file_field_tag :json %>
+	</br>
+	</br>
+	<%= submit_tag("Convert") %>
+<% end %>
+</div>

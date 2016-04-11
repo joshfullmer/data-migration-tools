@@ -1,25 +1,46 @@
-<%= "Contacts: #{params[:contacts][:checkbox]}" %>
-<h1>Person Types</h1>
-<% @types.each do |type| %>
-	<p><%= type %></p>
+<h1><%= "Contacts: #{params[:contacts][:checkbox]}" %></h1>
+<% if params[:contacts][:checkbox] == "true" %>
+	<div>
+		<table>
+			<tr>
+				<th>Person Types</th>
+				<th>Titles</th>
+				<th>Suffixes</th>
+				<th>Phone Types</th>
+				<th>Fax Types</th>
+			</tr>
+			<tr>
+				<td><% $types.each do |type| %>
+					<span><%= type %></span>
+					<br />
+				<% end %></td>
+				<td><% $titles.each do |title| %>
+					<span><%= title %></span>
+					<br />
+				<% end %></td>
+				<td><% $suffixes.each do |suffix| %>
+					<span><%= suffix %></span>
+					<br />
+				<% end %></td>
+				<td><% $phonetypes.each do |phonetype| %>
+					<span><%= phonetype %></span>
+					<br />
+				<% end %></td>
+				<td><% $faxtypes.each do |faxtype| %>
+					<span><%= faxtype %></span>
+					<br />
+				<% end %></td>
+			</tr>
+		</table>
+	</div>
 <% end %>
-<br />
-<h1>Titles</h1>
-<% @titles.each do |title| %>
-	<p><%= title %></p>
-<% end %>
-<br />
-<h1>Suffixes</h1>
-<% @suffixes.each do |suffix| %>
-	<p><%= suffix %></p>
-<% end %>
-<br />
-<h1>Phone Types</h1>
-<% @phonetypes.each do |phonetype| %>
-	<p><%= phonetype %></p>
-<% end %>
-<br />
-<h1>Fax Types</h1>
-<% @faxtypes.each do |faxtype| %>
-	<p><%= faxtype %></p>
+<% if params[:tasks][:checkbox] == 'true' %>
+	<div>
+		<span>Run the following SQL query on the destination application '<%= params[:dest_appname] %>' to move completed tasks from Notes to Completed Tasks</span>
+		<p>
+			UPDATE ContactAction<br />
+			SET ObjectType='Task'<br />
+			WHERE ObjectType='Note' AND ActionDescription LIKE '[Task]%';<br />
+		</p>
+	</div>
 <% end %>

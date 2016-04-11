@@ -3,8 +3,30 @@ require 'zip'
 require 'fileutils'
 require 'fields_arrays.rb'
 require 'base64'
+require 'uri'
+require 'net/http'
+require 'net/https'
+require 'basecamp'
+require 'closeIO'
+require 'json_converter'
 
 class ActionsController < ApplicationController
+
+	def api_test
+		initialize_infusionsoft("mj303",MJ303_APIKEY)
+
+
+	end
+
+	def delete_actions
+		initialize_infusionsoft("mj303",MJ303_APIKEY)
+
+		delete_table('Contact')
+		delete_table('ContactAction')
+		delete_table('Lead')
+		delete_table('ProductInterest')
+
+	end
 
 	def attachments
 		#Captures Relationship and Attachments files
@@ -93,7 +115,7 @@ class ActionsController < ApplicationController
 
 		#Saves relationship file to local memory
 		@uploaded_file = params[:attachments]
-		@filename = "#{appname} - " + @uploaded_file.original_filename
+		@filename = "{appname} - " + @uploaded_file.original_filename
 		File.open(Rails.root.join('public', 'uploads', @filename), 'wb') do |file|
 			file.write(@uploaded_file.read)
 		end
@@ -109,8 +131,83 @@ class ActionsController < ApplicationController
 	end
 
 	def appsettings
-		@appsettings = Infusionsoft.data_get_app_setting('Contact','optiontypes')
+		@appsettings = Infusionsoft.data_get_app_setting('Templates','defuserid')
 		puts @appsettings
+	end
+
+	def basecamp
+=begin
+		response = basecamp_api_call('https://basecamp.com/1934040/api/v1/projects.json')
+		projects = JSON.parse(response.body)
+		File.open('C:\Users\josh.fullmer\Documents\Data Migration\Basecamp\projects.csv','wb') do |file|
+			file.write('Id,Name,SubName' + "\n")
+			projects.each do |project|
+				file.write("\"{project['id']}\",\"{project['name']}\",\"{project['description']}\"\n")
+			end
+		end
+=end
+		contact_projects = [9238691, 5883828, 9377624, 7751701, 1916491, 10822341, 1623504]
+		contact_projects = [1623504]
+		File.open('C:\Users\josh.fullmer\Documents\Data Migration\Basecamp\contacts.csv','wb') do |file|
+			file.write("projectid\tlistid\tlistname\tlistdescription\tcommentid\tcommentcontent\tcommentcreatedat\tcommentupdatedat\tcommentcreator\n")
+			contact_projects.each do |projectid|
+				response = basecamp_api_call("https://basecamp.com/1934040/api/v1/projects/{projectid}/todolists.json")
+				todolists = JSON.parse(response.body)
+				todolists.each do |list|
+					response = basecamp_api_call(list['url'])
+					todolist = JSON.parse(response.body)
+					todolist['comments'].each do |comment|
+						commentcontent = comment['content'].nil? ? nil : comment['content'].gsub!(/"/,"'")
+						file.write("\"#{projectid}\"\t\"#{list['id']}\"\t\"#{list['name']}\"\t\"#{list['description']}\"\t\"#{comment['id']}\"\t\"#{commentcontent}\"\t\"#{comment['created_at']}\"\t\"#{comment['updated_at']}\"\t\"#{comment['creator']['name']}\"\n")
+					end
+				end
+			end
+		end
+
+	end
+
+	def closeio
+		json_converter = JsonConverter.new
+		filenum = 1
+		skip = 0
+		limit = 100
+		#File.open("C:\\Users\\josh.fullmer\\Documents\\Data Migration\\Heather Pettit\\api\\leads.csv",'wb+') do |file|
+			#data = {'data' => []}
+			#while true do
+				#response = JSON.parse(closeio_api_call("https://app.close.io/api/v1/lead/?_skip=#{skip}&_limit=#{limit}"))
+				#data['data'] += response['data']
+				#break unless response['has_more']
+				#skip += limit
+			#end
+			#file.write(json_converter.generate_csv(data['data'].to_json))
+		#end
+		data = []
+		while true do
+			response = closeio_api_call("https://app.close.io/api/v1/activity/call/?_skip=#{skip}&_limit=#{limit}")
+			rubyhash = JSON.parse(response)
+			rubyhash['data'].each do |hash|
+				hash.delete('body_html') unless hash['body_html'].nil?
+				hash.delete('body_html_quoted') unless hash['body_html_quoted'].nil?
+				data << hash
+			end
+			break unless rubyhash['has_more']
+			skip += limit
+			filenum += 1
+		end
+		File.open("C:\\Users\\josh.fullmer\\Documents\\Data Migration\\Heather Pettit\\api\\calls.json",'wb+') do |file|
+			file.write(data.to_json)
+		end
+	end
+
+	def closeio_json2csv
+		json_converter = JsonConverter.new
+
+		File.open('C:\Users\josh.fullmer\Documents\Data Migration\Heather Pettit\api\leads.csv','w') do |outfile|
+			File.open('C:\Users\josh.fullmer\Documents\Data Migration\Heather Pettit\api\leads.json','r') do |infile|
+				json = JSON.parse(infile.read)
+				outfile.write(json_converter.generate_csv(json))
+			end
+		end
 	end
 
 end

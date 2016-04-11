@@ -49,3 +49,7 @@ gem 'smarter_csv'
 gem 'rubyzip'
 
 gem 'pdf-reader'
+
+gem 'json_converter'
+
+gem 'sparsify'
